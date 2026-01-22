@@ -35,9 +35,7 @@ export class RestitutionContactInformationComponent extends FormBase implements 
     this.form = <FormGroup>this.controlContainer.control;
     setTimeout(() => {
       this.form.markAsTouched();
-    }, 0);
-    // console.log("contact info component");
-    // console.log(this.form);
+    }, 0);    
   }
   primaryContactChange(index) {
     let entityContacts = this.form.get('entityContacts') as FormArray;

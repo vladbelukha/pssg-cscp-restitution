@@ -1,11 +1,11 @@
-import { FormBase } from '../../form-base';
-import { OnInit, Component, Input } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatStepper } from '@angular/material';
-import { FormGroup, ControlContainer, FormArray, FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { ControlContainer, FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MY_FORMATS, IOptionSetVal, ResitutionForm, EnumHelper, CRMBoolean, CRMMultiBoolean } from '../../enums-list';
-import { AddressHelper } from '../../address/address.helper';
 import { RESTITUTION_PAGES } from '../../../restitution-application/restitution-application.component';
+import { AddressHelper } from '../../address/address.helper';
+import { CRMBoolean, CRMMultiBoolean, EnumHelper, IOptionSetVal, MY_FORMATS, ResitutionForm } from '../../enums-list';
+import { FormBase } from '../../form-base';
 
 @Component({
   selector: 'app-restitution-review',
@@ -30,19 +30,25 @@ export class RestitutionReviewComponent extends FormBase implements OnInit {
   PAGES = RESTITUTION_PAGES;
   applicant_type: string = '';
 
-  get showIndigenous(){
-    return this.form.get('restitutionInformation.primaryRaceEthnicity').value == this.enumHelper.CRMRaceEthnicity.Indigenous.val || this.form.get('restitutionInformation.indigenousStatus').value != null;
+  get showIndigenous() {
+    return (
+      this.form.get('restitutionInformation.primaryRaceEthnicity').value ==
+        this.enumHelper.CRMRaceEthnicity.Indigenous.val ||
+      this.form.get('restitutionInformation.indigenousStatus').value != null
+    );
   }
 
-  get showOtherRace(){
-    return this.form.get('restitutionInformation.primaryRaceEthnicity').value == this.enumHelper.CRMRaceEthnicity.Other.val;
+  get showOtherRace() {
+    return (
+      this.form.get('restitutionInformation.primaryRaceEthnicity').value == this.enumHelper.CRMRaceEthnicity.Other.val
+    );
   }
 
-  get showOtherPronoun(){
+  get showOtherPronoun() {
     return this.form.get('restitutionInformation.pronouns').value == this.enumHelper.CRMPronoun.Other.val;
   }
 
-    get showOtherGender(){
+  get showOtherGender() {
     return this.form.get('restitutionInformation.gender').value == this.enumHelper.CRMGender.SelfDescribe.val;
   }
 
@@ -55,8 +61,6 @@ export class RestitutionReviewComponent extends FormBase implements OnInit {
     setTimeout(() => {
       this.form.markAsTouched();
     }, 0);
-    // console.log("overview component");
-    // console.log(this.formType);
 
     if (this.formType.val === ResitutionForm.Victim.val || this.formType.val === ResitutionForm.VictimEntity.val) {
       this.applicant_type = 'Victim';
@@ -66,10 +70,8 @@ export class RestitutionReviewComponent extends FormBase implements OnInit {
 
     let entityContacts = this.form.get('restitutionInformation.contactInformation.entityContacts') as FormArray;
     this.contactsToDisplay = this.fb.array([]);
-    console.log(entityContacts);
 
     for (let i = 0; i < entityContacts.length; ++i) {
-      console.log(entityContacts.at(i).get('firstName'));
       if (entityContacts.at(i).get('firstName').value || entityContacts.at(i).get('lastName').value) {
         this.contactsToDisplay.push(entityContacts.at(i));
       }

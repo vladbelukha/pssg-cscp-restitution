@@ -1,21 +1,21 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationType, IOptionSetVal, MY_FORMATS } from '../shared/enums-list';
-import { CancelDialog } from '../shared/dialogs/cancel/cancel.dialog';
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { FormBase } from '../shared/form-base';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { JusticeApplicationDataService } from '../services/justice-application-data.service';
-import { LookupService } from '../services/lookup.service';
-import { MatSnackBar, MatDialog, MatVerticalStepper } from '@angular/material';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { RestitutionInfoHelper } from '../shared/restitution/restitution-information/restitution-information.helper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { StateService } from '../services/state.service';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MatSnackBar, MatVerticalStepper } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { config } from '../../config';
 import { iLookupData } from '../interfaces/lookup-data.interface';
-import { convertRestitutionToCRM } from './restitution.to.crm';
 import { iRestitutionApplication } from '../interfaces/restitution.interface';
+import { JusticeApplicationDataService } from '../services/justice-application-data.service';
+import { LookupService } from '../services/lookup.service';
+import { StateService } from '../services/state.service';
+import { CancelDialog } from '../shared/dialogs/cancel/cancel.dialog';
+import { ApplicationType, IOptionSetVal, MY_FORMATS } from '../shared/enums-list';
+import { FormBase } from '../shared/form-base';
+import { RestitutionInfoHelper } from '../shared/restitution/restitution-information/restitution-information.helper';
+import { convertRestitutionToCRM } from './restitution.to.crm';
 
 export enum RESTITUTION_PAGES {
   OVERVIEW,
@@ -123,8 +123,6 @@ export class RestitutionApplicationComponent extends FormBase implements OnInit 
 
     Promise.all(promise_array).then((res) => {
       this.didLoad = true;
-      console.log('Lookup data');
-      console.log(this.lookupData);
     });
   }
 
@@ -203,7 +201,6 @@ export class RestitutionApplicationComponent extends FormBase implements OnInit 
       );
     } else {
       this.submitting = false;
-      console.log('form not validated');
       this.markAsTouched();
     }
   }

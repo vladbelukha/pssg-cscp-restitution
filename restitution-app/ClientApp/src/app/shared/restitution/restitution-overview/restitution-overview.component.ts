@@ -28,9 +28,7 @@ export class RestitutionOverviewComponent extends FormBase implements OnInit {
     this.form = <FormGroup>this.controlContainer.control;
     setTimeout(() => {
       this.form.markAsTouched();
-    }, 0);
-    // console.log("overview component");
-    // console.log(this.formType);
+    }, 0);    
 
     if (this.formType.val === ResitutionForm.Victim.val || this.formType.val === ResitutionForm.VictimEntity.val) {
       this.applicant = 'Victim';
